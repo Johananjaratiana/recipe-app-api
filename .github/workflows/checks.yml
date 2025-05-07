@@ -8,9 +8,6 @@ jobs:
     name: Test and Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
       - name: Set up Docker
         uses: docker/setup-qemu-action@v2
         
@@ -22,16 +19,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
-      - name: Start Docker services
-        run: docker-compose up -d
+      
+      - name: Checkout code
+        uses: actions/checkout@v3
         
       - name: Run tests
         run: docker-compose exec app python manage.py test
         
       - name: Run linting
         run: docker-compose exec app flake8 .
-        
-      - name: Clean up
-        if: always()
-        run: docker-compose down
