@@ -1,0 +1,119 @@
+------------------------------------------------------ TEST ---------------------------------------------------------------
+
+Django test framework
+---------------------
+    - Based on the unittest library
+    - Django adds features 
+        - Test client - dummy web browser 
+        - Simulate authentication 
+        - Temporary database 
+
+    - Django REST Framework adds features 
+        - API test client 
+
+
+Where do you put tests ?
+------------------------
+    - Placeholder tests.py added to each app 
+    - Or, create tests/ subdirectory to split tests up 
+    - Keep in mind :
+        - Only use tests.py or tests/ directory ( not both )
+        - Test modules must start with test_ 
+        - Test directories must contain __init__.py
+
+Test Database 
+-------------
+    - Test code that uses the DB 
+    - Specific database for tests 
+        1) Runs test 
+        2) Clears data 
+        1) -> 2) -> 1) -> 2) -> ...
+    - Happens for every test ( by default )
+
+Test classes
+------------
+    - SimpleTestCase
+        - No database intefration
+        - Useful if no database is required for our test 
+        - Save time executing tests 
+    - TestCase 
+        - Database integration
+        - Useful for testing code that uses database
+
+Writing tests
+-------------
+    - Import test class
+        - SimpleTestCase - No database 
+        - TestCase - Database 
+    - Import objects to test 
+    - Define test class 
+    - Add test method
+    - Setup inputs 
+    - Execute code to be tested
+    - Check output
+
+-> Ecrire le test -> Fails -> Implementer la method
+
+
+
+------------------------------------------------------ MOCKING ---------------------------------------------------------------
+
+What is Mocking ?
+-----------------
+    - Override or change behaviour of dependencies
+    - Avoid unintended side effects
+    - Isolate code being tested 
+
+Why use mocking ?
+-----------------
+    - Avoid relying on external services 
+        - Can` t guarantee they will be available 
+        - Makes tests unpredictable and inconsistent
+
+    - Avoid unintended consequences
+        - Accedentally sending emails 
+        - Overloading external services
+
+How to mock code ?
+------------------
+    - User unittest.mock 
+        - MagicMock / Mock - Replace real objects 
+        - patch - Overrides code for tests
+
+------------------------------------------------------ TESTING WEB REQUESTS ---------------------------------------------------------------
+
+Testing APIs 
+------------
+    - Make actual requests 
+    - Check result 
+
+Django REST Framework APIClient 
+-------------------------------
+    - Based on the Django`s TestClient 
+    - Make requests
+    - Check result 
+    - Override authentication
+
+Using the APIClient
+-------------------
+    - import APIClient
+    - Create client 
+    - Make request
+    - Check result 
+
+
+------------------------------------------------------ Commom testing problem ---------------------------------------------------------------
+
+Common Issues
+-------------
+    - Tests not running:
+        ...
+        Ran 0 tests in 0.000s
+        ...
+        - Ran less tests than you have 
+        - Possible reasons for tests not running 
+            - Missing __init__.py in tests/ dir
+            - Indentation of test cases ( test_... method  in test_... method )
+            - Missing test prefix for method 
+    - ImportError when running tests 
+        - Both tests/ dir and tests.py exist.
