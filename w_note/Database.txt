@@ -1,0 +1,135 @@
+PostgreSQL
+----------
+    - Popular open source DB 
+    - Integrates well with Django
+
+Docker Compose
+--------------
+    - Defined with project (re-usable)
+    - Persistent data using volumes
+    - Handles network configuration
+    - Environment variable configuration
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+|                                                             Docker Compose                                                              |
++-------------------------------------------------------------------+---------------------------------------------------------------------+
+|       Database ( PostgreSQL )                                     |                   App ( Django )                                    |
++-------------------------------------------------------------------+---------------------------------------------------------------------+
+
+
+Volumes 
+-------
+    - Persistent data 
+    - Maps directory in container to local machine
+
+
+Steps for configuring database 
+------------------------------
+    - Configure Django
+        - Tell Django how to connect 
+    - Install database adaptor dependencies
+        - Install the tool Django uses to connect
+    - Update python requirements
+
+Django needs to know
+-------------------- 
+    - Engine ( type of database )
+    - Hostname ( IP or domain name for database )
+    - Port 
+    - Database Name 
+    - Username 
+    - Password
+
+Environment variables
+---------------------
+    - Pull config values from environment variables
+    - Easily passed to Docker 
+    - Used in local dev or prod 
+    - Single place to configure project 
+    - Easy to do with python
+
+
+----------------------------------------------------------- DEPENDENCIES ---------------------------------------------------
+Psycopg2
+--------
+    - Most popular PostgreSQL adaptor for Python 
+    - Supported by Django
+
+Installation options 
+-------------------
+    - psycopg2-binary
+        - OK for development 
+        - Not good for production 
+    - psycopg2
+        - Compiles from source 
+        - Required additional dependencies
+        - Easy to install with Docker 
+
+Installing Psycopg2
+-------------------
+    - List of package dependencies in docs :
+        - C compiler 
+        - python3-dev 
+        - libpq-dev
+    - Equivalent packages for Alpine 
+        - postgresql-client 
+        - build-base 
+        - postgresql-dev 
+        - musl-dev 
+    - Found by searching and trial and error
+    - Docker best practice :
+        - Clean up build dependencies
+
+
+----------------------------------------------------------- DATABASE RACE CONDITION ---------------------------------------------------
+Make Django "wait for db"
+-------------------------
+    - Check for database availability
+    - Continue when database ready 
+
+Create custom Django management command
+---------------------------------------
+
+When is this an issue ?
+----------------------
+    - Running docker-compose locally 
+    - Running on deployed environment
+
+
+----------------------------------------------------------- DATABASE MIGRATION ---------------------------------------------------
+Django ORM 
+----------
+    - Object Relational Mapper ( ORM )
+    - Abstraction layer for data 
+        - Django handles database structure and chandes
+        - Focus on Python code 
+        - Use any database (within reason)
+
+Using the ORM 
+-------------
+    - Define models -> Generate migration files -> Setup database -> Store data 
+
+Models 
+------
+    - Each model maps to a table 
+    - Models contain :
+        - Name 
+        - Fields
+        - Other metadata
+        - Custom Python logic
+
+Creating migrations 
+-------------------
+    - Ensure app is enabled in settings.py 
+    - Use Django CLI 
+        - python manage.py makemigrations
+
+Applying migrations 
+-------------------
+    - Use Django CLI 
+        - python manage.py migrate 
+    - Run if after waiting for database
+
+
+----------------------------------------------------------- UPDATE DOCKERCOMPOSE AND CICD FOLLOW ALONG ---------------------------------------------------
