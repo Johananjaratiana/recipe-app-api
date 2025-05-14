@@ -1,0 +1,83 @@
+----------------------------------------- Django authentication -------------------------------------------------
+- Built in authentication system
+- Framework for basic features
+    - Registration
+    - Login
+    - Auth
+- Integrates with Django admin
+
+
+----------------------------------------- Django user -----------------------------------------------------------
+- Foundation of the Django auth system
+- Default user model
+    - Username instead of email
+    - Not easy to customise
+- Create a custom model for new projects
+    - Allows for using email instead of username
+    - Future proof project for later changes to user model
+
+
+----------------------------------------- How to customise user model -------------------------------------------
+- Create model
+    - Base from AbstractBaseUser and PermissionsMixin
+- Create custom manager
+    - Used for CLI integration
+- Set AUTH_USER_MODEL in settings.py
+- Create and run migration
+
+    1) AbstractBaseUser
+    -------------------
+        - Provides features for authentication
+        - Doesn`t include fields
+
+    2) PermissionsMixin
+    -------------------
+        - Support for Django permission system
+        - Includes fields and methods
+
+    3) Common issues
+    ----------------
+        - Running migrations before setting custom model
+            - Set custom model first
+        - Typos in config
+        - Indentation in manager or model
+
+----------------------------------------- Design custom user model  -------------------------------------------
+    1) User fields
+    --------------
+        - email ( EmailField )
+        - name ( CharField )
+        - is_active ( BooleanField )
+        - is_staff ( BooleanField )
+
+    2) User model manager
+    ---------------------
+        - Used to manage objects
+        - Custom logic for creating objects
+            - Hash password
+        - Used by Django CLI
+            - Create superuser
+
+    3) BaseUserManager
+    ------------------
+        - Base class for managing users
+        - Useful helper methods
+            - normalize_email : for storing emails consistently
+        - Methods we`ll define
+            - create_user: called when creating user
+            - create_superuser: used by the CLI to create a superuser ( admin )
+
+
+----------------------------------------- Migration  ----------------------------------------------------------
+docker volume ls
+docker-compose down
+docker volume rm <VOLUME_USED>
+python manage.py makemigrations
+python manage.py migrate
+
+
+----------------------------------------- Summary of create user model  ----------------------------------------
+- Create a custom user model
+- Configured Django to use it
+- Handle normalising email
+- Handle encrypting passwords
