@@ -1,0 +1,66 @@
+Why document ?
+-------------
+    - APIs are designed for developers to use
+    - Need to know how to use it
+    - An API is only as good as its documentation
+
+What to document ?
+-----------------
+    - Everything needed to use the API
+    - Available endpoints ( paths )
+        - /api/recipes
+    - Supported methods
+        - HTTP methods : GET, POST, PUT, PATCH, DELETE
+    - Format of payloads ( inputs )
+        - Parameters
+        - Post JSON format
+    - Format of responses ( outputs )
+        - Response JSON format
+    - Authentication process
+
+Options for documentation
+-------------------------
+    - Manual
+        - Word doc
+        - Markdown
+    - Automated
+        - user metadata from code ( comments )
+        - Generate documentation pages
+
+In this section
+---------------
+    - Explore tools for making documentation seamless
+    - Add documentation for our API
+
+------------------------------------------------------ Auto Docs in DRF ------------------------------------------------
+1) Docs in DRF
+--------------
+    - Auto generate docs ( with third part library )
+        - drf-spectacular
+    - Generates schema
+    - Browsable web interface
+        - Make test requests
+        - Handle auth
+
+2) How it works
+---------------
+    a) Generate "schema" file
+    b) Parse schema into GUI
+
+3) OpenAPI Schema
+-----------------
+    - Standard for describing APIs
+    - Popular in industry
+    - Supported by most API documentation tools
+    - Uses popular formats: YAML/JSON
+
+4) Using a Schema
+-----------------
+    - Download and run in local Swagger instance
+    - Serve Swagger with API
+
+
+------------------------------------------------------ In this section ------------------------------------------
+    - Learn about API documentation
+    - Implemented Swagger and OpenAPI Schema
+    - Tested documentation
